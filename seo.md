@@ -1,4 +1,4 @@
-## 谷歌 SEO 优化方案
+## SEO 优化方案
 爬虫：Googlebot
 
 ### 站内优化
@@ -154,11 +154,10 @@ Sitemap: https://juejin.cn/sitemap/user_pins/index.xml
 1. 每个页面可以做 2~4 个内链；
 2. 不同的页面不要用相同的链接文案；
 
-Google Search Console 工具
-可以查看站点被爬取的情况，并编辑内链
+### 外链与被外链
+外链是指我们网站内跳转到别人网站的链接。
 
-### 外链优化
-被链接得越多就意味着权重越高，所以外链自然也是很关键的一部分，**我们需要在其他网站上多发布带有指向 shopee express 链接的内容**。
+被链接得越多就意味着权重越高，所以被外链自然也是很关键的一部分，**我们需要在其他网站上多发布带有指向 shopee express 链接的内容**。
 但是是不是越多越好呢？也不一定。当对方的网站性能很差，或者放出去的链接成了死链，搜索引擎可能会将我们网站的排名降低。因此外链过来的站点不稳定，性能较差时，建议使用 nofollow，当跳转到内链密度比较大，对 SEO 优化可能产生负面效果的页面时，也可以设置为 nofollow；
 
 外链到其他网站
@@ -178,8 +177,38 @@ Google 使用 chromium 来运行 js，理论上是可以抓取 SPA 页面的请�
 但是谷歌依然推荐服务端渲染：
 > 它可让用户和抓取工具更快速地看到您的网站内容；并非所有漫游器都能运行 JavaScript
 
-### SSG 优化
-
 ### 优化时效
 > 有些更改可能在几小时后生效，而其他更改可能需要几个月的时间才能生效。一般来说，您可能需要等待几周的时间来评估您的工作是否对 Google 搜索结果产生了有益影响。
+
+
+## SEO 分析工具
+
+可以在这些工具里上传网站地图，当让更便捷的做法还是在 robot.txt 中配好 sitemap
+工具中还可以看到网站的点击、展示和点击率等数据，也有 SEO 优化建议
+
+### Google
+[Google Search Console](https://search.google.com/search-console/welcome?action=inspect&utm_medium=referral&utm_campaign=9012289&sjid=15237214050967251681-NC)
+进入控制台之前要经过认证，会有一点点麻烦，但是有多种[认证方案](https://www.weixiuzhinan.com/8932.html)，推荐使用 URL Prefix 认证。
+
+### Bing
+[Bing Webmaster Tools](https://www.bing.com/webmasters/)。
+
+### SEMrush
+SEMrush 整合了搜索引擎数据、广告数据、爬虫数据及第三方合作数据，覆盖全球多个搜索引擎，被众多SEO专业人士、营销机构和企业广泛使用，数据质量经过长期验证。
+
+而且有配套浏览器插件（SEMrush Query），简单易用，不过 7 天免费期过后要付费，并且费用不低。
+
+#### 数据局准确性
+它的数据是通过技术手段估算的，并非直接来源于各搜索引擎的官方数据。
+
+比如统计我们网站的 google index 数量的时候，他会通过抓取 google site:spx.vn 返回的页面数量作为估算值。另外它本身也有爬虫，会爬取我们的网站，然后将爬取到的结果与谷歌搜索结果作对比，以此来推测哪些页面被放到了 google index 中。
+
+所以 SEMrush 的统计数据只是基于技术估算的参考值，非绝对真实数据。并且 SEMrush 无法完全区分自然搜索与付费流量。
+
+### 小结
+鉴于我们的 SEO 优化主要是希望针对谷歌搜索，因此建议主要参考 Google Search Console 的数据，但是对竞对的数据，则只能依赖 SEMrush 工具了。
+
+## SSR 基础
+参考 SSR demo 项目，这是一个极简的 SSR MVP 示例，前端项目是一个带有路由的 SPA，后端则是一个简单的 node server，我们可以在 build 的时候通过这个 node 服务生成一个 SSG 页面，替换前端的 index.html 模板。
+
 
