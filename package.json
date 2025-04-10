@@ -1,0 +1,30 @@
+{
+  "name": "ssr-demo-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:components": "cd packages/components && pnpm run build",
+    "build:client": "cd packages/client && pnpm run build",
+    "build:server": "cd packages/server && pnpm run build",
+    "dev:client": "cd packages/client && pnpm run dev",
+    "dev:server": "cd packages/server && pnpm run dev",
+    "build": "pnpm run build:components && pnpm run build:client && sleep 1 && pnpm run build:server",
+    "dev": "concurrently \"pnpm run dev:client\" \"pnpm run dev:server\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "concurrently": "^8.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}
