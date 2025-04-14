@@ -3,6 +3,8 @@
 
 ### 站内优化
 #### TDK
+关键词要注意**各市场本地化**。
+
 - 确保 Title 正确且不冗长
 - Meta 的 name 配置为 description，`<meta name="description" content="..." />`。内容长度不要太长，要包含页面内容核心的关键词。
 - name 为 keyword Meta 对 bing 还是会有一定的影响。逗号分隔的关键词列表。建议 1-4 各，避免关键词堆砌，同时建议使用长尾关键词，非专业名词，比如寄xx类型快递之类，作为可能被精准度匹配的关键词，特定搜索条件下可能带来较好的转化效果。
@@ -128,16 +130,27 @@ Sitemap: https://juejin.cn/sitemap/user_pins/index.xml
 #### 页面路由结构（网址设计）
 参考[Google 的网址结构最佳实践](https://developers.google.cn/search/docs/crawling-indexing/indexable-file-types?hl=zh-cn)：
 - 使用准确易读的字词
-- 域名使用地区域名 ✅
+- 域名使用地区域名 ✅ 注意语言
 - 不推荐 hash 路由
 - path 用 - 连接单词，而不是 _
 - 尽可能避免在网址中使用会话 ID，而应考虑使用 Cookie
 - 避免在网址中使用不易读的、冗长的 ID 编号，比如 /detail/:id，这种地址如果是商品展示页，应该考虑在这种页面加上下面的标签：
 ```html
+<!-- 意思是当前这个网页不应该被收录，这个 href 指向的网页才是规范的，建议被搜索引擎收录的内容 -->
 <link rel="canonical" href="https://example.com/detail/12345/product-name" />
 ```
-告诉搜索引擎去找一个主版本的详情页，避免重复内容
+这样就告诉搜索引擎去找一个主版本的详情页，避免重复内容
+
 或者认为这种页面不需要被爬虫爬取，直接在跳转详情的连接添加 `nofollow`，或者 `robots.txt` 文件中 将 `/detail` 目录配置为 disallow
+
+alternate 标识，同业务域的站点
+```html
+<link rel="alternate" href="https://example.com/detail/12345/product-name" />
+```
+
+不同语言应该要对应不同的子目录
+
+子域名代表不同的端 比如 m.xx 代表移动端，而不是用 /m/ 子目录
 
 #### 内链
 > Google 主要通过已抓取的其他网页中的链接来查找网页。
@@ -198,7 +211,7 @@ SEMrush 整合了搜索引擎数据、广告数据、爬虫数据及第三方合
 
 而且有配套浏览器插件（SEMrush Query），简单易用，不过 7 天免费期过后要付费，并且费用不低。
 
-#### 数据局准确性
+#### 数据准确性
 它的数据是通过技术手段估算的，并非直接来源于各搜索引擎的官方数据。
 
 比如统计我们网站的 google index 数量的时候，他会通过抓取 google site:spx.vn 返回的页面数量作为估算值。另外它本身也有爬虫，会爬取我们的网站，然后将爬取到的结果与谷歌搜索结果作对比，以此来推测哪些页面被放到了 google index 中。
@@ -211,4 +224,18 @@ SEMrush 整合了搜索引擎数据、广告数据、爬虫数据及第三方合
 ## SSR 基础
 参考 SSR demo 项目，这是一个极简的 SSR MVP 示例，前端项目是一个带有路由的 SPA，后端则是一个简单的 node server，我们可以在 build 的时候通过这个 node 服务生成一个 SSG 页面，替换前端的 index.html 模板。
 
+存在如下待调研的问题：
+1. 组件是在 client 和 server 端可以直接复用的吗？node 程序运行 ts + es 模块会有一定的配置修改，会有一定成本
+2. 如果组件需要经过打包后才能被 server 引用，该如何构建？页面的入口通常是 index.tsx，但是被 react-router 使用的组件通常是 App.tsx，这个 App.tsx 是否也要被单独打包？是否应该抽离到 components 目录中，将这个 package 的 page 都打包？
+3. 路由对应的 page 组件是异步加载的，内部还有异步的接口请求，SSR 生成页面的时候该如何将数据喂进去？
+
+## SSG
+webpack prerender-spa-plugin，可以尝试一下每次首页有内容发布时用这个插件
+
+## 参考资料
+Google SEO 指南 https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=zh-cn
+csdn SEO 专栏 https://blog.csdn.net/weixin_44869002/category_12352793.html
+其他文章
+https://web.developers.google.cn/articles/rendering-on-the-web?hl=zh-cn
+https://docs.ffffee.com/frontend/230110-1-frontend-seo.html
 
