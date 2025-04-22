@@ -1,20 +1,19 @@
 import Koa from 'koa';
-import Router from 'koa-router';
-import serve from 'koa-static';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import Router from '@koa/router';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server';
-import App from '@ssr-demo/client/src/App';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// react-router-dom 的 exports 限制 查看 react-router-dom 的 package.json 文件，发现它的 exports 字段中并未显式声明 ./server
+// 因此绕过 exports 限制，直接导入 server.js 文件的完整路径：
+import { StaticRouter } from 'react-router-dom/server.js';
+import App from '../../client/src/App';
+
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = new Koa();
 const router = new Router();
-
-// 静态文件服务
-app.use(serve(path.join(__dirname, '../public')));
 
 // SSR 路由
 router.get('*', async (ctx) => {

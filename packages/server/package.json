@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "NODE_OPTIONS='--loader ts-node/esm' ts-node-dev --respawn --transpile-only src/index.tsx",
+    "dev": "node --loader ts-node/esm src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/server/src/index.js"
   },
   "dependencies": {
     "@ssr-demo/client": "workspace:*",
@@ -21,6 +21,7 @@
     "@types/koa": "^2.13.13",
     "@types/koa-router": "^7.4.8",
     "@types/koa-static": "^4.0.4",
+    "@types/koa__router": "^12.0.4",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
