@@ -159,11 +159,16 @@ Sitemap: https://juejin.cn/sitemap/user_pins/index.xml
 
 ### 2.5 页面路由结构（网址设计）
 参考[Google 的网址结构最佳实践](https://developers.google.cn/search/docs/crawling-indexing/indexable-file-types?hl=zh-cn)：
-- 使用准确易读的字词
-- 域名使用地区域名 ✅ 注意语言
-- 不推荐 hash 路由，hash 路由的内容不会被发送到服务器，搜索引擎可能无法正确抓取页面内容，因此推荐使用 history route
-- path 用 - 连接单词，而不是 _
-- 尽可能避免在网址中使用会话 ID，而应考虑使用 Cookie
+- 在网址中使用简单、说明性字词，网址结构合乎逻辑并特别易于人类理解
+- 在网址中使用受众群体的语言（以及如适用的话，使用音译字词）
+- 不建议在网址中使用非 ASCII 字符
+- 不建议在网址中使用不易读的、冗长的 ID 编号，应考虑使用 Cookie
+- 不推荐 hash 路由，因为 hash 路由的内容不会被发送到服务器，搜索引擎可能无法正确抓取页面内容
+- 建议 path 用 `-` 连接单词，而不是 `_`
+- query 参数中，使用逗号 (,) 列出同一键的多个值，如：?category=dresses&color=purple,pink,salmon
+- 使用 robots.txt 文件阻止 Googlebot 访问有问题的网址，一般情况下应考虑阻止动态网址
+- 建议统一网址中的大小写文本的处理方式
+- 删去不必要的参数，尽可能缩短网址
 
 #### 2.5.1 新旧版本共存
 新网站可能带有新的路由设计，但是某些新路由可能和旧路由的页面是一样的，这时候可以通过在旧地址页面中加入 `<link rel="canonical" href="{new_url}" />` 告诉搜索引擎，这个页面是某个页面的复制，不需要收录，以免影响新页面的权重。

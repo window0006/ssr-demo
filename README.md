@@ -88,5 +88,10 @@ const Contact = React.lazy(() => import('./pages/Contact.js'));
 }
 ```
 
+## 异步组件
+通过 `React.Lazy` 实现路由按需加载后，SSR 同构将无法等待路由加载后再执行。
+解决方案：
+
+
 ## 小结
 没想到一个小小的 demo 就暗含如此多的坑。
